@@ -1,8 +1,9 @@
-//#include <execinfo.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef UNIT_TEST
 #include "gtest/gtest.h"
+#endif /* UNIT_TEST */
 
 #include "backtrace.h"
 
@@ -10,6 +11,7 @@ void fun1();
 void fun2();
 int fun3();
 
+#ifdef UNIT_TEST
 TEST(Testprint_stacktrace, callstack)
 {
   int result = atexit(print_stacktrace);
@@ -20,8 +22,7 @@ TEST(Testprint_stacktrace, callstack)
 
   ASSERT_EQ(0, fun3());
 }
-
-/*
+#else
 int main(int argc, char **argv)
 {
   int result = atexit(print_stacktrace);
@@ -30,10 +31,9 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  return fun3();
 }
-*/
+#endif
 
 void fun1()
 {
