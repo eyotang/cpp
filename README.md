@@ -17,7 +17,8 @@ Print backtrace before exit
     #7 0x7f55e1bb3ec5 in /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf5) [0x7f55e1bb3ec5]
     #8 0x4009a9 in ./backtrace() [0x4009a9]
 
-Use addr2line to decode the address
+Use addr2line to decode the address:
+
     # addr2line -e backtrace -f -C -a 0x400b8f
     0x0000000000400b8f
     print_stacktrace()
