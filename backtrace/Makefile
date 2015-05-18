@@ -1,12 +1,18 @@
-all:backtrace
+all:test_backtrace
 
-CPP_HEADER=-I.
+CXX = g++
+CXX_FLAGS = -rdynamic -g
+LIBS = -lgtest_main -lgtest -lpthread
+INCS=-I./
 
-backtrace:main.cc backtrace.cc
-	gcc -o main.o -rdynamic -g -c main.cc ${CPP_HEADER}
-	gcc -o backtrace.o -rdynamic -g -c backtrace.cc ${CPP_HEADER}
-	gcc main.o backtrace.o -rdynamic -g -o backtrace
+OBJS = test_backtrace.o backtrace.o
+
+test_backtrace:$(OBJS)
+	$(CXX) $(CXX_FLAGS) $(LIBS) -o test_backtrace $(OBJS)
+
+.cc.o:
+	$(CXX) $(CXX_FLAGS) -c $< -o $@ $(INCS)
 
 clean:
-	rm -rf backtrace
+	rm -rf test_backtrace
 	rm -rf *.o *.a *.la

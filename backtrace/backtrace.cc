@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <backtrace.h>
+#include "backtrace.h"
 
 void print_stacktrace(void)
 {
